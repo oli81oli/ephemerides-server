@@ -29,7 +29,12 @@ exports.getAllEphemerides = (req, res) => {
     Ephemerides.find()
         .then(response => {
             const result = response.filter(data => format(new Date(data.date), 'MM') === req.query.date)
-            result.sort((a, b) => format(new Date(a.date), 'dd') - format(new Date(b.date), 'dd'))
+            result.sort((a, b) => {
+                if (format(new Date(a.date), 'dd') === format(new Date(b.date), 'dd')) {
+                    return format(new Date(a.date), 'yyyy') - format(new Date(b.date), 'yyyy')
+                }
+                return format(new Date(a.date), 'dd') - format(new Date(b.date), 'dd')
+            })
             res.json(result)
 
         }).catch(error => {

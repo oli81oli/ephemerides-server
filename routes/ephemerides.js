@@ -19,7 +19,6 @@ router.post('/',
 
 
 router.get('/',
-
     ephemeridesController.getAllEphemerides
 )
 
